@@ -1,0 +1,87 @@
+@(title: String)(content: Html)
+
+<!DOCTYPE html>
+
+ <html>
+    <head>
+        <title>@title</title>
+        <meta charset="UTF-8">
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+        
+        <!-- Stylesheet -->
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/external/bootstrap.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/external/flat-ui.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/external/image-picker.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/internal/main.css")">
+        <!-- Only modernizr is loaded here, the rest is loaded in the end of <body> -->
+        <script type="text/javascript" src="@routes.Assets.at("javascripts/modernirz/modernizr.custom.js")"></script>
+    </head>
+    <body>
+	<header>
+		<nav class="navbar navbar-default" role="navigation">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target="#navbar-collapse-01">
+					<span class="sr-only">Toggle navigation</span>
+				</button>
+				<a class="navbar-brand" href="#">Palpiteiro</a>
+			</div>
+			<div class="collapse navbar-collapse" id="navbar-collapse-01">
+				<ul class="nav navbar-nav">
+					<li><a href="#fakelink">Resultados</a></li>
+					<li><a href="#fakelink">Tabela</a></li>
+				</ul>
+				<form class="navbar-form navbar-right" action="#" role="search"
+					style="width: 250px">
+					<div class="form-group">
+						<div class="input-group">
+							<input class="form-control" id="navbarInput-01" type="search" placeholder="Search"> 
+							<span class="input-group-btn">
+								<button type="submit" class="btn">
+									<span class="fui-search"></span>
+								</button>
+							</span>
+						</div>
+					</div>
+				</form>
+				<form class="navbar-form navbar-right" action="#" role="search"
+					style="width: 250px">
+					<div class="form-group">
+						<div class="input-group">
+							<input class="form-control" id="navbarInput-01" type="search" placeholder="Search"> 
+							<span class="input-group-btn">
+								<button type="submit" class="btn">
+									<span class="fui-search"></span>
+								</button>
+							</span>
+						</div>
+					</div>
+				</form>
+			</div>
+			<!-- /.navbar-collapse -->
+		</nav>
+		<!-- /navbar -->
+	</header>
+
+	<div id="content">
+        	@content
+        </div>
+        
+        <footer>
+        </footer>
+        
+        <!-- Loads all javascripts, except modernizr -->
+        <script src="@routes.Assets.at("javascripts/jquery/jquery-1.8.3.min.js")" type="text/javascript"></script>
+	    <script src="@routes.Assets.at("javascripts/jquery/jquery-ui-1.10.3.custom.min.js")" type="text/javascript"></script>
+	    <script src="@routes.Assets.at("javascripts/jquery/jquery.ui.touch-punch.min.js")" type="text/javascript"></script>
+	    <script src="@routes.Assets.at("javascripts/bootstrap/bootstrap.min.js")" type="text/javascript"></script>
+	    <script src="@routes.Assets.at("javascripts/bootstrap/bootstrap-select.js")" type="text/javascript"></script>
+	    <script src="@routes.Assets.at("javascripts/bootstrap/bootstrap-switch.js")" type="text/javascript"></script>
+	    <script src="@routes.Assets.at("javascripts/flat-ui/flatui-checkbox.js")" type="text/javascript"></script>
+	    <script src="@routes.Assets.at("javascripts/flat-ui/flatui-radio.js")" type="text/javascript"></script>
+	    <script src="@routes.Assets.at("javascripts/flat-ui/flatui.js")" type="text/javascript"></script>
+	    <script src="@routes.Assets.at("javascripts/jquery/jquery.tagsinput.js")" type="text/javascript"></script>
+	    <script src="@routes.Assets.at("javascripts/jquery/jquery.placeholder.js")" type="text/javascript"></script>
+	    <script src="@routes.Assets.at("javascripts/internal/main.js")" type="text/javascript"></script>
+    </body>
+</html>

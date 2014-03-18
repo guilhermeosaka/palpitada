@@ -1,0 +1,20 @@
+@(form: Form[Application.Login])
+
+<meta charset="UTF-8">
+@main("Login") {
+@helper.form(routes.Application.authenticate) {
+	<h6>Já possui conta?</h6>
+	@if(form.hasGlobalErrors) {
+		<p class="error" id="login-error">@form.globalError.message</p>
+	}
+	<p>
+		<input type="email" name="email" placeholder="Email" class="form-control" value="@form("email").value">
+	</p>
+	<p>
+		<input type="password" name="password" placeholder="Password" class="form-control">
+	</p>
+	<p>
+		<button type="submit">Login</button>
+	</p>
+}
+}
