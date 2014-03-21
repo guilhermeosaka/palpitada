@@ -1,7 +1,7 @@
 @(loginForm: Form[_])
 
 @import helper._
-@import helper.twitterBootstrap._
+@implicitField = @{ FieldConstructor(_fieldConstructor.f) }
 
 @main(Messages("playauthenticate.login.title"),"login") {
 
@@ -13,7 +13,7 @@
     
   <div id="login" class="row">
 
-    <div class="span3">
+    <div class="col-1-2 form-container">
       @* Display proprietary login form *@
     	@helper.form(routes.Application.doLogin) {
     	
@@ -38,7 +38,7 @@
     	}
     </div>
 
-    <div class="span3">
+    <div class="col-1-2 form-container">
       @Messages("playauthenticate.login.oauth")
       @* Display list of available providers *@
       @_providerPartial(skipCurrent=false)

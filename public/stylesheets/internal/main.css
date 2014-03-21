@@ -3,7 +3,7 @@
 	text-align: center;
 }
 
-#content .form-container {
+#content .form-container, header .navbar-default {
 	padding: 0 5%;
 }
 

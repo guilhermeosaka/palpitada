@@ -2,6 +2,7 @@
 
 <div class="clearfix @if(element.hasErrors){error}">
   <label for="@element.id" class="@element.args.get('_label_class)">@element.label</label>
+  <div>@element.errors.mkString(", ")</div>
   <div class="input">
     @element.input
   </div>
