@@ -1133,7 +1133,7 @@ input[type="search"] {
 label {
   font-weight: normal;
   font-size: 15px;
-  line-height: 2.4;
+  line-height: 1.4;
 }
 .form-control:-moz-placeholder {
   color: #b2bcc5;
@@ -1157,7 +1157,7 @@ label {
   font-family: "Lato", Helvetica, Arial, sans-serif;
   font-size: 15px;
   line-height: 1.467;
-  padding: 8px 12px;
+  padding: 2px 12px;
   height: 42px;
   -webkit-appearance: none;
   border-radius: 6px;

@@ -1,0 +1,10 @@
+@(f: Form[_], constraints: Boolean = false)
+
+@import helper._
+@implicitField = @{ FieldConstructor(_fieldConstructor.f) }
+
+@inputText(
+  f("email"),
+  'class -> "form-control big-input",
+  '_label -> Messages("playauthenticate.login.email.placeholder")
+)

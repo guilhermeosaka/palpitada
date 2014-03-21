@@ -1,0 +1,26 @@
+#content {
+	margin: 0 10%;
+	text-align: center;
+}
+
+#content .form-container {
+	padding: 0 5%;
+}
+
+label {
+	font-size: 1.2em;
+}
+
+
+/* Adjust input elements */
+.big-input {
+	max-width: 300px;
+	display: inline;
+	margin-bottom: 20px;
+}
+
+.nav .middle {
+	line-height: 50px;
+	margin-left: 21px;
+	margin-right: 20px;
+}
