@@ -58,6 +58,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+*/
 /* Use the following CSS code if you want to have a class per icon */
 /*
 Instead of a list of all class selectors,
@@ -103,6 +104,17 @@ you can use the generic selector below, but it's slower:
   text-transform: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+[class*="fui-"] {
+	display: inline-block;
+	font-family: 'Flat-UI-Icons';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 .fui-arrow-right:before {
   content: "\e02c";
@@ -1194,8 +1206,7 @@ fieldset[disabled] .form-control {
 }
 .input-sm {
   height: 35px;
-  padding: 6px 10px;
-  font-size: 13px;
+  padding: 0px 10px;
   line-height: 1.462;
   border-radius: 6px;
 }
@@ -1364,7 +1375,7 @@ select[multiple].input-hg {
 }
 .form-group {
   position: relative;
-  margin-bottom: 20px;
+  margin-bottom: 0px;
 }
 .form-horizontal .control-label,
 .form-horizontal .radio,
@@ -1408,6 +1419,7 @@ select[multiple].input-hg {
   background-color: #ffffff;
   padding: 0 12px 0 0;
   border-radius: 6px;
+  margin-top: 0px;
 }
 .input-hg + .input-icon {
   line-height: 49px;
@@ -1999,7 +2011,6 @@ fieldset[disabled] .input-group-btn .btn-default.active {
   font-size: 16px;
   padding: 15px 21px;
   line-height: 23px;
-  font-weight: 700;
 }
 .navbar-nav .dropdown-toggle .caret {
   border-top-color: #16a085;
@@ -3255,7 +3266,7 @@ fieldset[disabled] .twitter-typeahead .tt-hint {
 .tooltip-inner {
   background-color: #34495e;
   line-height: 1.286;
-  padding: 12px 12px;
+  padding: 5px 12px;
   text-align: center;
   width: 183px;
   border-radius: 6px;

@@ -2,8 +2,9 @@
 
 <div class="clearfix @if(element.hasErrors){error}">
   <label for="@element.id" class="@element.args.get('_label_class)">@element.label</label>
-  <div>@element.errors.mkString(", ")</div>
-  <div class="input">
+  <div class="error-block">@element.errors.mkString(", ")</div>
+  <div class="input form-group">
     @element.input
+    <span class="input-icon fui-check-inverted"></span>
   </div>
 </div>

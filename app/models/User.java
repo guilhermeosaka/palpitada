@@ -149,7 +149,7 @@ public class User extends Model implements Subject {
 			// verified within the application as a security breach there might
 			// break your security as well!
 			user.email = identity.getEmail();
-			user.emailValidated = false;
+			user.emailValidated = true;
 		}
 
 		if (authUser instanceof NameIdentity) {

@@ -5,7 +5,7 @@
 @implicitField = @{ FieldConstructor(_fieldConstructor.f) }
 
 @main(Messages("playauthenticate.signup.title"),"signup") {
-<h5>@Messages("playauthenticate.signup.title")</h5>
+<h1>@Messages("playauthenticate.signup.title")</h1>
 
   <div id="signup" class="">
 
@@ -21,7 +21,7 @@
             
 	    	@inputText(
 	    		signupForm("name"), 
-	    		'class -> "form-control big-input",
+	    		'class -> "form-control big-input input-sm min-1",
                 '_label -> Messages("playauthenticate.signup.name") 
             )
             

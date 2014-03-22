@@ -11,16 +11,59 @@ label {
 	font-size: 1.2em;
 }
 
+.form-container form {
+	display: inline-block;
+	min-width: 250px;
+}
+
+.hidden {
+	display: none;
+}
+
+/* Error handling */
+div.error-block {
+	font-size: 12px;
+	background-color: #ec7063;
+	border-radius: 6px;
+	color: white;
+	position: absolute;
+	padding: 5px;
+	padding-top: 10px;
+	margin-top: 25px;
+	display: none;
+}
 
 /* Adjust input elements */
 .big-input {
 	max-width: 300px;
 	display: inline;
-	margin-bottom: 20px;
+	margin-top: 0px;
+	margin-bottom: 30px;
 }
 
 .nav .middle {
 	line-height: 50px;
 	margin-left: 21px;
 	margin-right: 20px;
+}
+
+.input .input-icon {
+	display: none;
+	float: left;
+}
+
+form input[type="submit"] {
+	margin-top: 10px;
+}
+
+.serverside-error {
+	
+}
+
+//Responsiveness
+@media (min-width: 870px) {
+	.form-container form {
+		display: inline-block;
+		min-width: 300px;
+	}
 }
