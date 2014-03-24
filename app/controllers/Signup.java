@@ -190,7 +190,9 @@ public class Signup extends Controller {
 
 	public static Result exists() {
 		com.feth.play.module.pa.controllers.Authenticate.noCache(response());
-		return ok(exists.render());
+		//return ok(exists.render());
+		flash("error_signup", Messages.get("playauthenticate.email.exists.message"));
+		return redirect(routes.Application.signup());
 	}
 
 	public static Result verify(final String token) {

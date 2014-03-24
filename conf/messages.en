@@ -24,6 +24,7 @@ error.minLength=Minimum length is {0}
 error.maxLength=Maximum length is {0}
 error.email=Valid email required
 error.pattern=Must satisfy {0}
+playauthenticate.email.exists.message=This e-mail already exists.
 
 ### --- play-authenticate START
 
@@ -62,12 +63,12 @@ playauthenticate.login.title=Login
 playauthenticate.login.password.placeholder=Password
 playauthenticate.login.now=Login now
 playauthenticate.login.forgot.password=Forgot your password?
-playauthenticate.login.oauth=or log in using one of the following providers:
+playauthenticate.login.oauth=Log in using one of the following providers:
 
 playauthenticate.signup.title=Signup
 playauthenticate.signup.name=Your name
 playauthenticate.signup.now=Sign up now
-playauthenticate.signup.oauth=or sign up using one of the following providers:
+playauthenticate.signup.oauth=Sign up using one of the following providers:
 
 playauthenticate.verify.account.title=E-mail verification required
 playauthenticate.verify.account.before=Before setting a password, you need to

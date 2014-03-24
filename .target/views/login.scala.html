@@ -5,14 +5,19 @@
 
 @main(Messages("playauthenticate.login.title"),"login") {
 
-  <div class="row">
-    <div class="span6">
-      <h1>@Messages("playauthenticate.login.title")</h1>
+  <h2>@Messages("playauthenticate.login.title")</h2>
+  
+  <div class="line-separator"></div>  
+  <div id="login">
+    <div class="col-1-2 form-container">
+      @Messages("playauthenticate.login.oauth")
+      @* Display list of available providers *@
+      @_providerPartial(skipCurrent=false)
     </div>
-  </div>
-    
-  <div id="login" class="row">
-
+	
+	<div class="inner-separator line-300">
+	</div>
+	
     <div class="col-1-2 form-container">
       @* Display proprietary login form *@
     	@helper.form(routes.Application.doLogin) {
@@ -27,7 +32,7 @@
           
         @inputPassword(
           loginForm("password"),
-		  'class -> "form-control big-input input-sm min-4",
+		  'class -> "form-control big-input input-sm min-4 password",
           '_label -> Messages("playauthenticate.login.password.placeholder")
         )
           
@@ -37,13 +42,6 @@
 
     	}
     </div>
-
-    <div class="col-1-2 form-container">
-      @Messages("playauthenticate.login.oauth")
-      @* Display list of available providers *@
-      @_providerPartial(skipCurrent=false)
-    </div>
-
   </div>
 
 }

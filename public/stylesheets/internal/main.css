@@ -1,14 +1,19 @@
 #content {
-	margin: 0 10%;
+	margin: 0;
 	text-align: center;
 }
 
 #content .form-container, header .navbar-default {
-	padding: 0 5%;
+	padding: 0 50px;
+}
+
+#content .form-container {
+	margin-top: 20px;
 }
 
 label {
-	font-size: 1.2em;
+	font-size: 1.1em;
+	margin-bottom: 10px;
 }
 
 .form-container form {
@@ -18,6 +23,47 @@ label {
 
 .hidden {
 	display: none;
+}
+
+header .navbar {
+	margin-bottom: 0px;
+} 
+
+.line-separator {
+	height:0px;
+	background:none;
+	margin: 20px 0;
+	border-bottom: 2px solid #34495E;
+}
+
+.inner-separator {
+	float: left;
+	background-color: #34495E;
+	width: 70%;
+	height: 2px;
+	margin-bottom: 30px;
+	margin-left: 15%;
+	margin-right: 15%;
+}
+
+/* Provider part */
+.providers {
+	list-style: none;
+	padding: 20px;
+}
+
+.providers li {
+	display: inline;
+	margin: 10px 10px;
+}
+
+.providers li img {
+	width: 50px;
+}
+
+/* Icons */
+.btn .left-icon {
+	margin-right: 10px;
 }
 
 /* Error handling */
@@ -33,12 +79,31 @@ div.error-block {
 	display: none;
 }
 
+p.error {
+	background-color: red;
+	border: 2px dashed red;
+}
+
+.alert {
+	background-color: #ec7063;
+	color: white;
+	text-align: center;
+	border-radius: 0;
+	margin: 0;
+	margin-bottom: 20px;
+}
+
+.has-success input {
+	border: 2px solid #2ecc71;
+}
+
 /* Adjust input elements */
 .big-input {
 	max-width: 300px;
 	display: inline;
 	margin-top: 0px;
 	margin-bottom: 30px;
+	border: 2px dashed #34495e;
 }
 
 .nav .middle {
@@ -56,14 +121,34 @@ form input[type="submit"] {
 	margin-top: 10px;
 }
 
-.serverside-error {
-	
-}
-
 //Responsiveness
+
 @media (min-width: 870px) {
 	.form-container form {
 		display: inline-block;
 		min-width: 300px;
+	}
+}
+
+@media (min-width: 768px) {
+	.inner-separator {
+		margin: 0;
+		margin-top: 50px;
+		margin-bottom: 0px;
+		width: 2px;
+	}
+
+	.line-300 {
+		height: 250px;
+	}
+	
+	.line-450 {
+		height: 400px;
+	}
+}
+
+@media (min-width: 1200px) {
+	#content {
+		margin: 0 10%;
 	}
 }

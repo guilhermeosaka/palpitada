@@ -1,14 +1,23 @@
 @(signupForm: Form[_])
 
 @import helper._
-@import play.api.Play.current
 @implicitField = @{ FieldConstructor(_fieldConstructor.f) }
 
 @main(Messages("playauthenticate.signup.title"),"signup") {
-<h1>@Messages("playauthenticate.signup.title")</h1>
 
-  <div id="signup" class="">
+  <h2>@Messages("playauthenticate.signup.title")</h2>
 
+  <div class="line-separator"></div>
+  <div id="signup">
+    <div class="col-1-2 form-container">
+        @Messages("playauthenticate.signup.oauth")
+        @* Display list of available providers *@
+        @_providerPartial(skipCurrent=false)
+    </div>
+    
+    <div class="inner-separator line-450">
+	</div>
+    
     <div class="col-1-2 form-container">
         @* Display proprietary login form *@
     	@helper.form(routes.Application.doSignup) {
@@ -32,12 +41,6 @@
             <input type="submit" value="@Messages("playauthenticate.signup.now")" class="btn btn-primary">
     	}
     </div>
-    <div class="col-1-2 form-container">
-        @Messages("playauthenticate.signup.oauth")
-        @* Display list of available providers *@
-        @_providerPartial(skipCurrent=false)
-    </div>
-
   </div>
 
 }

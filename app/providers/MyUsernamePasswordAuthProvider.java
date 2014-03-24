@@ -75,7 +75,7 @@ public class MyUsernamePasswordAuthProvider
 			com.feth.play.module.pa.providers.password.UsernamePasswordAuthProvider.UsernamePassword {
 
 		@Required
-		@MinLength(5)
+		@MinLength(4)
 		public String password;
 
 		@Override
@@ -92,7 +92,7 @@ public class MyUsernamePasswordAuthProvider
 	public static class MySignup extends MyLogin {
 
 		@Required
-		@MinLength(5)
+		@MinLength(4)
 		public String repeatPassword;
 
 		@Required

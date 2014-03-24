@@ -3,6 +3,12 @@
 
 # --- !Ups
 
+create table groupteam (
+  id                        bigint not null,
+  name                      varchar(255),
+  constraint pk_groupteam primary key (id))
+;
+
 create table linked_account (
   id                        bigint not null,
   user_id                   bigint,
@@ -15,6 +21,14 @@ create table security_role (
   id                        bigint not null,
   role_name                 varchar(255),
   constraint pk_security_role primary key (id))
+;
+
+create table team (
+  id                        bigint not null,
+  name                      varchar(255),
+  logo                      varchar(255),
+  group_id                  bigint,
+  constraint pk_team primary key (id))
 ;
 
 create table token_action (
@@ -38,6 +52,7 @@ create table users (
   last_login                timestamp,
   active                    boolean,
   email_validated           boolean,
+  team_id                   bigint,
   constraint pk_users primary key (id))
 ;
 
@@ -59,9 +74,13 @@ create table users_user_permission (
   user_permission_id             bigint not null,
   constraint pk_users_user_permission primary key (users_id, user_permission_id))
 ;
+create sequence groupteam_seq;
+
 create sequence linked_account_seq;
 
 create sequence security_role_seq;
+
+create sequence team_seq;
 
 create sequence token_action_seq;
 
@@ -71,8 +90,12 @@ create sequence user_permission_seq;
 
 alter table linked_account add constraint fk_linked_account_user_1 foreign key (user_id) references users (id) on delete restrict on update restrict;
 create index ix_linked_account_user_1 on linked_account (user_id);
-alter table token_action add constraint fk_token_action_targetUser_2 foreign key (target_user_id) references users (id) on delete restrict on update restrict;
-create index ix_token_action_targetUser_2 on token_action (target_user_id);
+alter table team add constraint fk_team_group_2 foreign key (group_id) references groupteam (id) on delete restrict on update restrict;
+create index ix_team_group_2 on team (group_id);
+alter table token_action add constraint fk_token_action_targetUser_3 foreign key (target_user_id) references users (id) on delete restrict on update restrict;
+create index ix_token_action_targetUser_3 on token_action (target_user_id);
+alter table users add constraint fk_users_team_4 foreign key (team_id) references team (id) on delete restrict on update restrict;
+create index ix_users_team_4 on users (team_id);
 
 
 
@@ -88,9 +111,13 @@ alter table users_user_permission add constraint fk_users_user_permission_user_0
 
 SET REFERENTIAL_INTEGRITY FALSE;
 
+drop table if exists groupteam;
+
 drop table if exists linked_account;
 
 drop table if exists security_role;
+
+drop table if exists team;
 
 drop table if exists token_action;
 
@@ -104,9 +131,13 @@ drop table if exists user_permission;
 
 SET REFERENTIAL_INTEGRITY TRUE;
 
+drop sequence if exists groupteam_seq;
+
 drop sequence if exists linked_account_seq;
 
 drop sequence if exists security_role_seq;
+
+drop sequence if exists team_seq;
 
 drop sequence if exists token_action_seq;
 

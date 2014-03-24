@@ -61,7 +61,11 @@ public class User extends Model implements Subject {
 
 	@ManyToMany
 	public List<UserPermission> permissions;
-
+	
+	//My attributes
+	@ManyToOne
+	public Team team;
+	
 	public static final Finder<Long, User> find = new Finder<Long, User>(
 			Long.class, User.class);
 
