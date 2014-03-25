@@ -1,8 +1,7 @@
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
-import models.Group;
 import models.SecurityRole;
 import models.Team;
 import play.Application;
@@ -83,49 +82,46 @@ public class Global extends GlobalSettings {
 			}
 		}
 		
-		//Groups
-		String[] groups = {"A", "B", "C", "D", "E", "F", "G", "H"};
-		if (Group.find.findRowCount() == 0) {
-			for (final String letter : groups) {
-				final Group group = new Group(letter);
-				group.save();
-			}
-		}
-		
 		//Teams
 		if (Team.find.findRowCount() == 0) {
-			new Team("Alemanha", "DE.png", new Group("G")).save();
-            new Team("Argélia", "DZ.png", new Group("H")).save();
-            new Team("Argentina", "AR.png", new Group("F")).save();
-            new Team("Austrália", "AU.png", new Group("B")).save();
-            new Team("Bélgica", "BE.png", new Group("H")).save();
-            new Team("Bósnia", "BA.png", new Group("F")).save();
-            new Team("Brasil", "BR.png", new Group("A")).save();
-            new Team("Camarões", "CM.png", new Group("A")).save();
-            new Team("Chile", "CL.png", new Group("B")).save();
-            new Team("Colômbia", "CO.png", new Group("C")).save();
-            new Team("Coréia do Sul", "KR.png", new Group("H")).save();
-            new Team("Costa do Marfim", "CI.png", new Group("C")).save();
-            new Team("Costa Rica", "CR.png", new Group("D")).save();
-            new Team("Croácia", "HR.png", new Group("A")).save();
-            new Team("Equador", "EC.png", new Group("E")).save();
-            new Team("Espanha", "ES.png", new Group("B")).save();
-            new Team("Estados Unidos", "US.png", new Group("G")).save();
-            new Team("França", "FR.png", new Group("E")).save();
-            new Team("Gana", "GH.png", new Group("G")).save();
-            new Team("Grécia", "GR.png", new Group("C")).save();
-            new Team("Holanda", "NL.png", new Group("B")).save();
-            new Team("Honduras", "HN.png", new Group("E")).save();
-            new Team("Inglaterra", "EN.png", new Group("D")).save();
-            new Team("Irã", "IR.png", new Group("F")).save();
-            new Team("Itália", "IT.png", new Group("D")).save();
-            new Team("Japão", "JP.png", new Group("C")).save();
-            new Team("México", "MX.png", new Group("A")).save();
-            new Team("Nigéria", "NG.png", new Group("F")).save();
-            new Team("Portugal", "PT.png", new Group("G")).save();
-            new Team("Rússia", "RU.png", new Group("H")).save();
-            new Team("Suíça", "CH.png", new Group("E")).save();
-            new Team("Uruguai", "UY.png", new Group("D")).save();
+//			Team Germany = new Team("DE.png", Team.GroupTeam.G);
+//			new TeamName(Germany, "en", "Germany").save();
+//			new TeamName(Germany, "pt", "Alemanha").save();
+			Map<String, String> germanyNames = new HashMap<>();
+			germanyNames.put("en", "Germany");
+			germanyNames.put("pt", "Alemanha");
+			Team.createAndSave(germanyNames, "DE.png", Team.GroupTeam.G);
+//            new Team("Argélia", "DZ.png", Team.GroupTeam.H).save();
+//            new Team("Argentina", "AR.png", Team.GroupTeam.F).save();
+//            new Team("Austrália", "AU.png", Team.GroupTeam.B).save();
+//            new Team("Bélgica", "BE.png", Team.GroupTeam.H).save();
+//            new Team("Bósnia", "BA.png", Team.GroupTeam.F).save();
+//            new Team("Brasil", "BR.png", Team.GroupTeam.A).save();
+//            new Team("Camarões", "CM.png", Team.GroupTeam.A).save();
+//            new Team("Chile", "CL.png", Team.GroupTeam.B).save();
+//            new Team("Colômbia", "CO.png", Team.GroupTeam.C).save();
+//            new Team("Coréia do Sul", "KR.png", Team.GroupTeam.H).save();
+//            new Team("Costa do Marfim", "CI.png", Team.GroupTeam.C).save();
+//            new Team("Costa Rica", "CR.png", Team.GroupTeam.D).save();
+//            new Team("Croácia", "HR.png", Team.GroupTeam.A).save();
+//            new Team("Equador", "EC.png", Team.GroupTeam.E).save();
+//            new Team("Espanha", "ES.png", Team.GroupTeam.B).save();
+//            new Team("Estados Unidos", "US.png", Team.GroupTeam.G).save();
+//            new Team("França", "FR.png", Team.GroupTeam.E).save();
+//            new Team("Gana", "GH.png", Team.GroupTeam.G).save();
+//            new Team("Grécia", "GR.png", Team.GroupTeam.C).save();
+//            new Team("Holanda", "NL.png", Team.GroupTeam.B).save();
+//            new Team("Honduras", "HN.png", Team.GroupTeam.E).save();
+//            new Team("Inglaterra", "EN.png", Team.GroupTeam.D).save();
+//            new Team("Irã", "IR.png", Team.GroupTeam.F).save();
+//            new Team("Itália", "IT.png", Team.GroupTeam.D).save();
+//            new Team("Japão", "JP.png", Team.GroupTeam.C).save();
+//            new Team("México", "MX.png", Team.GroupTeam.A).save();
+//            new Team("Nigéria", "NG.png", Team.GroupTeam.F).save();
+//            new Team("Portugal", "PT.png", Team.GroupTeam.G).save();
+//            new Team("Rússia", "RU.png", Team.GroupTeam.H).save();
+//            new Team("Suíça", "CH.png", Team.GroupTeam.E).save();
+//            new Team("Uruguai", "UY.png", Team.GroupTeam.D).save();
 		}
 	}
 }

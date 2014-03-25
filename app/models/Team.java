@@ -1,15 +1,33 @@
 package models;
 
+import java.util.Map;
+import java.util.Set;
+
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import play.db.ebean.Model;
+import play.db.ebean.Transactional;
 
 @Entity
 @Table(name = "team")
 public class Team extends Model {
+	
+	public enum GroupTeam {
+		A,
+		B,
+		C,
+		D,
+		E,
+		F,
+		G,
+		H
+	}
 	
 	/**
 	 * 
@@ -17,19 +35,33 @@ public class Team extends Model {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
+	@GeneratedValue
 	public Long id;
-	public String name;
 	public String logo; //Path of the logo (eg. "logo.png")
-	@ManyToOne
-	public Group group;
 	
-	public Team(String name, String logo, Group group) {
-		this.name = name;
+	@OneToMany
+	public Set<TeamName> names; //Multi-language
+
+	@Enumerated(EnumType.STRING)
+	public GroupTeam groupTeam;
+	
+	public Team(String logo, GroupTeam groupTeam) {
 		this.logo = logo;
-		this.group = group;
+		this.groupTeam = groupTeam;
 	}
 	
 	public static Finder<Long,Team> find = new Finder<Long,Team>(
 		Long.class, Team.class
     ); 
+	
+	@Transactional
+	public static void createAndSave(Map<String, String> names, String logo, GroupTeam group) {
+		Team team = new Team(logo, group);
+		team.save();
+		for (Map.Entry<String, String> name : names.entrySet()) {
+			TeamNameKey teamNameKey = new TeamNameKey(name.getKey(), team.id);
+			TeamName teamName = new TeamName(teamNameKey, name.getValue());
+			teamName.save();
+		}
+	}
 }
