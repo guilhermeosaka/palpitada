@@ -1,7 +1,17 @@
+// Global variables
+var teams;
+
 $(document).ready(function() {
-//	if ($("#login-error").is(":visible")) {
-//	} else {
-//	}
+	teams = getTeams();
+	
+	//Team-picker
+	if ($("div").hasClass("team-picker")) {
+		teamOptionLabel($("#team-picker"));
+		$("#vote-team").click(function() {
+			var ddData = $('#team-picker').data('ddslick');
+			vote(ddData.selectedData.value);
+		});
+	}
 	
 	/* It can be done creating a plugin (remember note) */
 	//Validation - Email
@@ -110,4 +120,67 @@ function confirmPass(actual, current) {
 		return false;
 	else
 		return true;
+}
+
+
+//Ajax call + loaders
+function getTeams() {
+	var teams;
+	ajax.controllers.Application.getTeams().ajax({
+		async: false,
+	    success : function(data) {
+	    	teams = data;
+	    },
+		error: function(data) {
+			alert("error");
+		}
+	});
+	
+	return teams;
+}
+
+
+function teamOption(element) {
+	var ddData = [];
+	for (var i in teams) {
+		if (teams[i].id == 7)
+			ddData.push( { value: teams[i].id, imageSrc: "/assets/images/external/flags/" + teams[i].logo, selected: true } );
+		else 
+			ddData.push( { value: teams[i].id, imageSrc: "/assets/images/external/flags/" + teams[i].logo } );
+	}
+	
+	element.ddslick({
+		data: ddData,
+		width: 100,
+		imagePosition: "left"
+	});
+}
+
+function teamOptionLabel(element) {
+	var ddData = [];
+	for (var i in teams) {
+		if (teams[i].id == 7)
+			ddData.push( { text: teams[i].name, value: teams[i].id, imageSrc: "assets/images/external/flags/" + teams[i].logo, selected: true } );
+		else 
+			ddData.push( { text: teams[i].name, value: teams[i].id, imageSrc: "assets/images/external/flags/" + teams[i].logo } );
+	}
+	
+	element.ddslick({
+		data: ddData,
+		width: 300,
+		imagePosition: "left"
+	});
+}
+
+function vote(teamId) {
+	ajax.controllers.Application.voteFavorite(teamId).ajax({
+		success : function(data) {
+			//window.location.replace("/");
+			//$(".team-picker").fadeOut();
+			location.reload();
+		},
+		error : function(data) {
+			alert("errado");
+		}
+	});
 }

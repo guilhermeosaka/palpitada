@@ -2,22 +2,32 @@ package controllers;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
+import models.Team;
+import models.TeamName;
 import models.User;
 import play.Routes;
 import play.data.Form;
-import play.mvc.*;
-import play.mvc.Http.Response;
+import play.libs.Json;
+import play.mvc.BodyParser;
+import play.mvc.Controller;
 import play.mvc.Http.Session;
 import play.mvc.Result;
 import providers.MyUsernamePasswordAuthProvider;
 import providers.MyUsernamePasswordAuthProvider.MyLogin;
 import providers.MyUsernamePasswordAuthProvider.MySignup;
-
-import views.html.*;
+import views.html.index;
+import views.html.login;
+import views.html.profile;
+import views.html.restricted;
+import views.html.signup;
 import be.objectify.deadbolt.java.actions.Group;
 import be.objectify.deadbolt.java.actions.Restrict;
 
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.feth.play.module.pa.PlayAuthenticate;
 import com.feth.play.module.pa.providers.password.UsernamePasswordAuthProvider;
 import com.feth.play.module.pa.user.AuthUser;
@@ -27,6 +37,7 @@ public class Application extends Controller {
 	public static final String FLASH_MESSAGE_KEY = "message";
 	public static final String FLASH_ERROR_KEY = "error";
 	public static final String USER_ROLE = "user";
+	public static final String ADMIN_ROLE = "admin";
 	
 	public static Result index() {
 		return ok(index.render());
@@ -96,5 +107,48 @@ public class Application extends Controller {
 	public static String formatTimestamp(final long t) {
 		return new SimpleDateFormat("yyyy-dd-MM HH:mm:ss").format(new Date(t));
 	}
+	
+	//Ajax calls
+	public static Result javascriptRoutes() {
+	    response().setContentType("text/javascript");
+	    return ok(
+	        Routes.javascriptRouter("ajax",
+	            routes.javascript.Application.getTeams(),
+	            routes.javascript.Application.voteFavorite()
+	        )
+	    );
+	}
+	
+	@BodyParser.Of(play.mvc.BodyParser.Json.class)
+	public static Result getTeams() {
+		List<Team> teams = Team.find.all();
 
+		ArrayNode teamList = new ArrayNode(JsonNodeFactory.instance);
+		for (Team team : teams) {
+			ObjectNode result = Json.newObject();
+			result.put("id", team.id);
+			result.put("name", team.names.get(0).name);
+			result.put("logo", team.logo);
+			result.put("group", team.groupTeam.toString());
+			teamList.add(result);
+		}
+		
+		return ok(teamList);
+	}
+	
+	public static Result voteFavorite(Long id) {
+		Team team = Team.find.byId(id);
+		User user = getLocalUser(session());
+		user.team = team;
+		user.save();
+		return ok(index.render());
+	}
 }
+
+//List<Team> teams = Team.find.all();
+//List<JsonNode> jsonTeams = new ArrayList<>();
+//for (Team team : teams) {
+//	jsonTeams.add(Json.toJson(team));	
+//}
+//
+//return ok(Json.toJson(jsonTeams));

@@ -1,7 +1,7 @@
 package models;
 
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -40,7 +40,7 @@ public class Team extends Model {
 	public String logo; //Path of the logo (eg. "logo.png")
 	
 	@OneToMany
-	public Set<TeamName> names; //Multi-language
+	public List<TeamName> names; //Multi-language
 
 	@Enumerated(EnumType.STRING)
 	public GroupTeam groupTeam;
@@ -55,7 +55,7 @@ public class Team extends Model {
     ); 
 	
 	@Transactional
-	public static void createAndSave(Map<String, String> names, String logo, GroupTeam group) {
+	public static Team create(Map<String, String> names, String logo, GroupTeam group) {
 		Team team = new Team(logo, group);
 		team.save();
 		for (Map.Entry<String, String> name : names.entrySet()) {
@@ -63,5 +63,7 @@ public class Team extends Model {
 			TeamName teamName = new TeamName(teamNameKey, name.getValue());
 			teamName.save();
 		}
+		
+		return team;
 	}
 }

@@ -1,0 +1,22 @@
+#register-match {
+	text-align: center;
+}
+
+#register-match  {
+}
+
+#team-picker-left, #team-picker-right, .x-separator {
+	display: inline-block;
+}
+
+#datetime-match {
+	text-align: start;
+}
+
+.datetime-match {
+	text-align: center !important;
+	margin: 20px 0;
+}
+
+.xdsoft_datetimepicker {
+}
