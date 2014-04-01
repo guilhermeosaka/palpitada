@@ -50,6 +50,8 @@ GET		/admin/results				controllers.Admin.Results
 # Ajax calls
 GET     /javascriptRoutes     		controllers.Application.javascriptRoutes
 GET     /team/all					controllers.Application.getTeams
+GET 	/stage/all					controllers.Application.getStages
+GET 	/group/all					controllers.Application.getGroups
 PUT 	/favorite/:id				controllers.Application.voteFavorite(id: Long)
 
 # Map static resources from the /public folder to the /assets URL path

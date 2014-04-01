@@ -1,16 +1,16 @@
 package controllers;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import models.Stage;
 import models.Team;
-import models.TeamName;
 import models.User;
 import play.Routes;
 import play.data.Form;
 import play.libs.Json;
-import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Http.Session;
 import play.mvc.Result;
@@ -114,26 +114,56 @@ public class Application extends Controller {
 	    return ok(
 	        Routes.javascriptRouter("ajax",
 	            routes.javascript.Application.getTeams(),
+	            routes.javascript.Application.getStages(),
+	            routes.javascript.Application.getGroups(),
 	            routes.javascript.Application.voteFavorite()
 	        )
 	    );
 	}
 	
-	@BodyParser.Of(play.mvc.BodyParser.Json.class)
 	public static Result getTeams() {
 		List<Team> teams = Team.find.all();
 
-		ArrayNode teamList = new ArrayNode(JsonNodeFactory.instance);
+		ArrayNode result = new ArrayNode(JsonNodeFactory.instance);
 		for (Team team : teams) {
-			ObjectNode result = Json.newObject();
-			result.put("id", team.id);
-			result.put("name", team.names.get(0).name);
-			result.put("logo", team.logo);
-			result.put("group", team.groupTeam.toString());
-			teamList.add(result);
+			ObjectNode json = Json.newObject();
+			json.put("id", team.id);
+			json.put("name", team.names.get(0).name);
+			json.put("logo", team.logo);
+			json.put("group", team.groupTeam.toString());
+			result.add(json);
 		}
 		
-		return ok(teamList);
+		return ok(result);
+	}
+	
+	public static Result getStages() {
+		List<Stage> stages = Stage.find.all();
+		
+		ArrayNode result = new ArrayNode(JsonNodeFactory.instance);
+		for (Stage stage : stages) {
+			ObjectNode json = Json.newObject();
+			json.put("id", stage.id);
+			json.put("name", stage.names.get(0).name);
+			result.add(json);
+		}
+		
+		return ok(result);
+	}
+	 
+	public static Result getGroups() {
+		List<Team.GroupTeam> groups = Arrays.asList(Team.GroupTeam.values());
+		
+		ArrayNode result = new ArrayNode(JsonNodeFactory.instance);
+		int id = 1;
+		for (Team.GroupTeam group: groups) {
+			ObjectNode json = Json.newObject();
+			json.put("id", id++);
+			json.put("name", group.toString());
+			result.add(json);
+		}
+		
+		return ok(result);
 	}
 	
 	public static Result voteFavorite(Long id) {

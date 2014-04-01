@@ -1,10 +1,9 @@
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import models.SecurityRole;
+import models.Stage;
 import models.Team;
 import play.Application;
 import play.GlobalSettings;
@@ -214,6 +213,39 @@ public class Global extends GlobalSettings {
 			uruguayNames.put("en", "Uruguay");
 			uruguayNames.put("pt", "Uruguai");
 			Team uruguay = Team.create(uruguayNames, "UY.png", Team.GroupTeam.G);
+		}
+		
+		//Stage
+		if (Stage.find.findRowCount() == 0) {
+			Map<String, String> groupStageNames = new HashMap<>();
+			groupStageNames.put("en", "Group stage");
+			groupStageNames.put("pt", "Fase de grupos");
+			Stage groupStage = Stage.create(groupStageNames);
+			
+			Map<String, String> roundOf16Names = new HashMap<>();
+			roundOf16Names.put("en", "Round of 16");
+			roundOf16Names.put("pt", "Oitavas de final");
+			Stage roundOf16 = Stage.create(roundOf16Names);
+			
+			Map<String, String> quarterFinalsNames = new HashMap<>();
+			quarterFinalsNames.put("en", "Quarter-finals");
+			quarterFinalsNames.put("pt", "Quartas de final");
+			Stage quarterFinals = Stage.create(quarterFinalsNames);
+			
+			Map<String, String> semiFinalsNames = new HashMap<>();
+			semiFinalsNames.put("en", "Semi-finals");
+			semiFinalsNames.put("pt", "Semi final");
+			Stage semiFinals = Stage.create(semiFinalsNames);
+			
+			Map<String, String> finalNames = new HashMap<>();
+			finalNames.put("en", "Final");
+			finalNames.put("pt", "Final");
+			Stage finalStage = Stage.create(finalNames);
+			
+			Map<String, String> unimportantNames = new HashMap<>();
+			unimportantNames.put("en", "Unimportant match");
+			unimportantNames.put("pt", "Partida sem importância");
+			Stage unimportantStage = Stage.create(unimportantNames);
 		}
 	}
 }

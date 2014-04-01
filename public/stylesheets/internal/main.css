@@ -49,6 +49,19 @@ header .navbar {
 	margin-right: 15%;
 }
 
+.datetime {
+	text-align: start;
+}
+
+.selectricWrapper {
+	display: inline-block;
+}
+
+.selectric .label, .selectricItems ul, .selectricItems li {
+	font-size: 14px;
+	font-weight: normal;
+}
+
 .team-picker {
 	background-color: #C9D787;
 	margin: 0;
@@ -77,9 +90,9 @@ header .navbar {
 }
 
 .dd-options {
-	height: 200px;
+	height: 330px;
 	overflow-y: auto !important;
-	z-index: 10000 !important;
+	background-color: #F9F9F9 !important;
 }
 
 .dd-option-text {
@@ -98,8 +111,16 @@ header .navbar {
 	font-size: 14px !important;
 }
 
+.dd-option:hover {
+	background-color: #DDD !important;
+}
+
 .dd-option-image, .dd-selected-image {
 	margin-left: 10px;
+}
+
+.dd-pointer-down, .dd-pointer-up {
+	border-color: #CCC transparent transparent !important;
 }
 
 /* Provider part */

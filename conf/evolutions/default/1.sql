@@ -17,6 +17,18 @@ create table security_role (
   constraint pk_security_role primary key (id))
 ;
 
+create table stage (
+  id                        bigint auto_increment not null,
+  constraint pk_stage primary key (id))
+;
+
+create table stagename (
+  language                  varchar(255),
+  stage_id                  bigint,
+  name                      varchar(255),
+  constraint pk_stagename primary key (language, stage_id))
+;
+
 create table team (
   id                        bigint auto_increment not null,
   logo                      varchar(255),
@@ -77,12 +89,14 @@ create table users_user_permission (
 ;
 alter table linked_account add constraint fk_linked_account_user_1 foreign key (user_id) references users (id) on delete restrict on update restrict;
 create index ix_linked_account_user_1 on linked_account (user_id);
-alter table team_name add constraint fk_team_name_team_2 foreign key (team_id) references team (id) on delete restrict on update restrict;
-create index ix_team_name_team_2 on team_name (team_id);
-alter table token_action add constraint fk_token_action_targetUser_3 foreign key (target_user_id) references users (id) on delete restrict on update restrict;
-create index ix_token_action_targetUser_3 on token_action (target_user_id);
-alter table users add constraint fk_users_team_4 foreign key (team_id) references team (id) on delete restrict on update restrict;
-create index ix_users_team_4 on users (team_id);
+alter table stagename add constraint fk_stagename_stage_2 foreign key (stage_id) references stage (id) on delete restrict on update restrict;
+create index ix_stagename_stage_2 on stagename (stage_id);
+alter table team_name add constraint fk_team_name_team_3 foreign key (team_id) references team (id) on delete restrict on update restrict;
+create index ix_team_name_team_3 on team_name (team_id);
+alter table token_action add constraint fk_token_action_targetUser_4 foreign key (target_user_id) references users (id) on delete restrict on update restrict;
+create index ix_token_action_targetUser_4 on token_action (target_user_id);
+alter table users add constraint fk_users_team_5 foreign key (team_id) references team (id) on delete restrict on update restrict;
+create index ix_users_team_5 on users (team_id);
 
 
 
@@ -101,6 +115,10 @@ SET FOREIGN_KEY_CHECKS=0;
 drop table linked_account;
 
 drop table security_role;
+
+drop table stage;
+
+drop table stagename;
 
 drop table team;
 

@@ -9,14 +9,15 @@
 	display: inline-block;
 }
 
-#datetime-match {
-	text-align: start;
-}
-
-.datetime-match {
+#register-match .line {
 	text-align: center !important;
-	margin: 20px 0;
+	margin: 10px 0;
 }
 
-.xdsoft_datetimepicker {
+#register-match .stages {
+	max-width: 180px;
+}
+
+#register-match .groups {
+	max-width: 50px;
 }

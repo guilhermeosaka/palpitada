@@ -1,8 +1,12 @@
 // Global variables
 var teams;
+var stages;
+var groups;
 
 $(document).ready(function() {
 	teams = getTeams();
+	stages = getStages();
+	groups = getGroups();
 	
 	//Team-picker
 	if ($("div").hasClass("team-picker")) {
@@ -122,24 +126,7 @@ function confirmPass(actual, current) {
 		return true;
 }
 
-
-//Ajax call + loaders
-function getTeams() {
-	var teams;
-	ajax.controllers.Application.getTeams().ajax({
-		async: false,
-	    success : function(data) {
-	    	teams = data;
-	    },
-		error: function(data) {
-			alert("error");
-		}
-	});
-	
-	return teams;
-}
-
-
+//Fills options with flags only
 function teamOption(element) {
 	var ddData = [];
 	for (var i in teams) {
@@ -156,6 +143,7 @@ function teamOption(element) {
 	});
 }
 
+//Fills options with flags and label
 function teamOptionLabel(element) {
 	var ddData = [];
 	for (var i in teams) {
@@ -172,6 +160,63 @@ function teamOptionLabel(element) {
 	});
 }
 
+function optionLabel(element, data) {
+	for (var i in data) {
+		element
+			.append($("<option></option>")
+			.attr("value", data[i].id)
+			.text(data[i].name));
+	}
+	element.selectric();
+} 
+
+//Ajax call + loaders (GET)
+function getTeams() {
+	var teams;
+	ajax.controllers.Application.getTeams().ajax({
+		async: false,
+	    success : function(data) {
+	    	teams = data;
+	    },
+		error: function(data) {
+			alert("error");
+		}
+	});
+	
+	return teams;
+}
+
+function getStages() {
+	var stages;
+	ajax.controllers.Application.getStages().ajax({
+		async: false,
+	    success : function(data) {
+	    	stages = data;
+	    },
+		error: function(data) {
+			alert("error");
+		}
+	});
+	
+	return stages;
+}
+
+function getGroups() {
+	var groups;
+	ajax.controllers.Application.getGroups().ajax({
+		async: false,
+		success : function(data) {
+			groups = data;
+		},
+		error: function(data) {
+			alert("error");
+		}
+	});
+	
+	return groups;
+}
+
+//Ajax call + loaders (POST)
 function vote(teamId) {
 	ajax.controllers.Application.voteFavorite(teamId).ajax({
 		success : function(data) {
