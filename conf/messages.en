@@ -152,3 +152,6 @@ playauthenticate.restricted.secrets=Secrets, everywhere!
 
 ### --- Palpitada
 palpitada.vote=Vote
+palpitada.matches=Matches
+palpitada.register_match=Register match
+palpitada.register=Register

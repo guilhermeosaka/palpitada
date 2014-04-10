@@ -3,6 +3,12 @@
 
 # --- !Ups
 
+create table group_team (
+  id                        bigint auto_increment not null,
+  name                      varchar(255),
+  constraint pk_group_team primary key (id))
+;
+
 create table linked_account (
   id                        bigint auto_increment not null,
   user_id                   bigint,
@@ -11,10 +17,32 @@ create table linked_account (
   constraint pk_linked_account primary key (id))
 ;
 
+create table matches (
+  id                        bigint auto_increment not null,
+  date                      datetime,
+  constraint pk_matches primary key (id))
+;
+
+create table matchteam (
+  match_id                  bigint,
+  team_id                   bigint,
+  constraint pk_matchteam primary key (match_id, team_id))
+;
+
 create table security_role (
   id                        bigint auto_increment not null,
   role_name                 varchar(255),
   constraint pk_security_role primary key (id))
+;
+
+create table stadium (
+  id                        bigint auto_increment not null,
+  name                      varchar(255),
+  image                     varchar(255),
+  city                      varchar(255),
+  state                     varchar(255),
+  capacity                  bigint,
+  constraint pk_stadium primary key (id))
 ;
 
 create table stage (
@@ -32,8 +60,7 @@ create table stagename (
 create table team (
   id                        bigint auto_increment not null,
   logo                      varchar(255),
-  group_team                varchar(1),
-  constraint ck_team_group_team check (group_team in ('A','B','C','D','E','F','G','H')),
+  group_id                  bigint,
   constraint pk_team primary key (id))
 ;
 
@@ -89,14 +116,20 @@ create table users_user_permission (
 ;
 alter table linked_account add constraint fk_linked_account_user_1 foreign key (user_id) references users (id) on delete restrict on update restrict;
 create index ix_linked_account_user_1 on linked_account (user_id);
-alter table stagename add constraint fk_stagename_stage_2 foreign key (stage_id) references stage (id) on delete restrict on update restrict;
-create index ix_stagename_stage_2 on stagename (stage_id);
-alter table team_name add constraint fk_team_name_team_3 foreign key (team_id) references team (id) on delete restrict on update restrict;
-create index ix_team_name_team_3 on team_name (team_id);
-alter table token_action add constraint fk_token_action_targetUser_4 foreign key (target_user_id) references users (id) on delete restrict on update restrict;
-create index ix_token_action_targetUser_4 on token_action (target_user_id);
-alter table users add constraint fk_users_team_5 foreign key (team_id) references team (id) on delete restrict on update restrict;
-create index ix_users_team_5 on users (team_id);
+alter table matchteam add constraint fk_matchteam_match_2 foreign key (match_id) references matches (id) on delete restrict on update restrict;
+create index ix_matchteam_match_2 on matchteam (match_id);
+alter table matchteam add constraint fk_matchteam_team_3 foreign key (team_id) references team (id) on delete restrict on update restrict;
+create index ix_matchteam_team_3 on matchteam (team_id);
+alter table stagename add constraint fk_stagename_stage_4 foreign key (stage_id) references stage (id) on delete restrict on update restrict;
+create index ix_stagename_stage_4 on stagename (stage_id);
+alter table team add constraint fk_team_group_5 foreign key (group_id) references group_team (id) on delete restrict on update restrict;
+create index ix_team_group_5 on team (group_id);
+alter table team_name add constraint fk_team_name_team_6 foreign key (team_id) references team (id) on delete restrict on update restrict;
+create index ix_team_name_team_6 on team_name (team_id);
+alter table token_action add constraint fk_token_action_targetUser_7 foreign key (target_user_id) references users (id) on delete restrict on update restrict;
+create index ix_token_action_targetUser_7 on token_action (target_user_id);
+alter table users add constraint fk_users_team_8 foreign key (team_id) references team (id) on delete restrict on update restrict;
+create index ix_users_team_8 on users (team_id);
 
 
 
@@ -112,9 +145,17 @@ alter table users_user_permission add constraint fk_users_user_permission_user_p
 
 SET FOREIGN_KEY_CHECKS=0;
 
+drop table group_team;
+
 drop table linked_account;
 
+drop table matches;
+
+drop table matchteam;
+
 drop table security_role;
+
+drop table stadium;
 
 drop table stage;
 

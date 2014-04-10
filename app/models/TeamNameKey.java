@@ -14,15 +14,12 @@ public class TeamNameKey {
 		this.teamId = teamId;
 	}
 	
-	public int hashCode()
-    {
+	public int hashCode() {
         return language.hashCode() + (int)(long)teamId;
     }
 
-    public boolean equals(Object other)
-    {
-        if (other != null && (other instanceof TeamNameKey))
-        {
+    public boolean equals(Object other) {
+        if (other != null && (other instanceof TeamNameKey)) {
         	TeamNameKey otherPK = (TeamNameKey)other;
             return otherPK.teamId == this.teamId && otherPK.language == this.language;
         }

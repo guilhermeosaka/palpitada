@@ -3,11 +3,11 @@ package models;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -18,22 +18,6 @@ import play.db.ebean.Transactional;
 @Table(name = "team")
 public class Team extends Model {
 	
-	public enum GroupTeam {
-		A,
-		B,
-		C,
-		D,
-		E,
-		F,
-		G,
-		H
-	}
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
 	@Id
 	@GeneratedValue
 	public Long id;
@@ -42,20 +26,24 @@ public class Team extends Model {
 	@OneToMany
 	public List<TeamName> names; //Multi-language
 
-	@Enumerated(EnumType.STRING)
-	public GroupTeam groupTeam;
+	@ManyToOne
+	@Column(name = "group_team")
+	public Group group;
 	
-	public Team(String logo, GroupTeam groupTeam) {
+	public Team(String logo, Group group) {
 		this.logo = logo;
-		this.groupTeam = groupTeam;
+		this.group = group;
 	}
+	
+	@OneToMany
+	public List<MatchTeam> matches;
 	
 	public static Finder<Long,Team> find = new Finder<Long,Team>(
 		Long.class, Team.class
     ); 
 	
 	@Transactional
-	public static Team create(Map<String, String> names, String logo, GroupTeam group) {
+	public static Team create(Map<String, String> names, String logo, Group group) {
 		Team team = new Team(logo, group);
 		team.save();
 		for (Map.Entry<String, String> name : names.entrySet()) {

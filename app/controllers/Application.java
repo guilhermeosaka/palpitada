@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import models.Stadium;
 import models.Stage;
 import models.Team;
 import models.User;
@@ -116,7 +117,9 @@ public class Application extends Controller {
 	            routes.javascript.Application.getTeams(),
 	            routes.javascript.Application.getStages(),
 	            routes.javascript.Application.getGroups(),
-	            routes.javascript.Application.voteFavorite()
+	            routes.javascript.Application.getStadiums(),
+	            routes.javascript.Application.voteFavorite(),
+	            routes.javascript.Admin.registerMatch()
 	        )
 	    );
 	}
@@ -130,7 +133,10 @@ public class Application extends Controller {
 			json.put("id", team.id);
 			json.put("name", team.names.get(0).name);
 			json.put("logo", team.logo);
-			json.put("group", team.groupTeam.toString());
+			ObjectNode group = Json.newObject();
+			group.put("id", team.group.id);
+			group.put("name", team.group.name);
+			json.put("group", group);
 			result.add(json);
 		}
 		
@@ -152,14 +158,31 @@ public class Application extends Controller {
 	}
 	 
 	public static Result getGroups() {
-		List<Team.GroupTeam> groups = Arrays.asList(Team.GroupTeam.values());
+		List<models.Group> groups = models.Group.find.all();
 		
 		ArrayNode result = new ArrayNode(JsonNodeFactory.instance);
-		int id = 1;
-		for (Team.GroupTeam group: groups) {
+		for (models.Group group : groups) {
 			ObjectNode json = Json.newObject();
-			json.put("id", id++);
-			json.put("name", group.toString());
+			json.put("id", group.id);
+			json.put("name", group.name);
+			result.add(json);
+		}
+		
+		return ok(result);
+	}
+	
+	public static Result getStadiums() {
+		List<Stadium> stadiums = Stadium.find.all();
+		
+		ArrayNode result = new ArrayNode(JsonNodeFactory.instance);
+		for (Stadium stadium : stadiums) {
+			ObjectNode json = Json.newObject();
+			json.put("id", stadium.id);
+			json.put("name", stadium.name);
+			json.put("image", stadium.image);
+			json.put("city", stadium.city);
+			json.put("state", stadium.state);
+			json.put("capactiy", stadium.capacity);
 			result.add(json);
 		}
 		

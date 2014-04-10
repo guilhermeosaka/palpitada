@@ -2,10 +2,7 @@
 	text-align: center;
 }
 
-#register-match  {
-}
-
-#team-picker-left, #team-picker-right, .x-separator {
+#team-a, #team-b, .x-separator {
 	display: inline-block;
 }
 
@@ -14,10 +11,15 @@
 	margin: 10px 0;
 }
 
-#register-match .stages {
+#register-match .stage {
 	max-width: 180px;
 }
 
-#register-match .groups {
+#register-match .group {
 	max-width: 50px;
+}
+
+#register-match .stadium {
+	max-width: 180px;
+	margin-bottom: 40px;
 }

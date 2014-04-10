@@ -42,11 +42,11 @@ header .navbar {
 .inner-separator {
 	float: left;
 	background-color: #34495E;
-	width: 70%;
+	width: 80%;
 	height: 2px;
 	margin-bottom: 30px;
-	margin-left: 15%;
-	margin-right: 15%;
+	margin-left: 10%;
+	margin-right: 10%;
 }
 
 .datetime {
@@ -249,7 +249,6 @@ form input[type="submit"] {
 }
 
 
-
 /* Visual styles (override flat-ui) */
 .navbar-default .navbar-nav > li > a {
 	color: white;
@@ -262,16 +261,25 @@ header .navbar {
 
 .btn-primary {
 	background-color: #FFD34E;
-	border: 0;
+	border: none;
 	border-radius: 5px;
 	color: #6B5933;
 }
 
 .btn-primary:hover, .btn-primary.disabled, .btn-primary:active, .open .dropdown-toggle.btn-primary {
+	background-color: #468966;
+}
+
+header .btn-primary {
+	background-color: #FFD34E;
+	border: 2px solid transparent;
+	border-radius: 5px;
+	color: #6B5933;
+}
+
+header .btn-primary:hover, header .btn-primary.disabled, header .btn-primary:active, header .open .dropdown-toggle.btn-primary, header .btn-primary:focus {
 	background-color: transparent;
-	border: 2px solid white;
-	border-top: 0;
-	border-bottom: 0;
+	border: 2px dashed white;
 }
 
 .navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
@@ -291,4 +299,13 @@ header .navbar {
 .dropdown-menu {
 	border: 2px dashed #468966;
 	border-top: none;
+}
+
+.secondary-separator {
+	display: inline-block;
+	width: 70%;
+	margin-bottom: 20px;
+	height: 2px;
+	border-top: 1px solid #34495E;
+	line-height: 0;
 }

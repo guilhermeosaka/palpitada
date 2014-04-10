@@ -3,26 +3,36 @@
 
 @main(Messages("playauthenticate.index.title")) {
 	<div class="col-1-2">
-	<h3>Jogos</h3>
+		<h3>@Messages("palpitada.matches")</h3>
+		<div class="secondary-separator"></div>
 	</div>
+	<div class="inner-separator line-450"></div>
 	<div class="col-1-2">
-	<h3>Cadastrar jogo</h3>
+	<h3>@Messages("palpitada.register_match")</h3>
+	<div class="secondary-separator"></div>
 		<div id="register-match">
 			<div class="col-1-1 line">
-				<select class="stages">
+				<select class="stage">
 				</select>
 			</div>
 			<div class="col-1-1 line">
-				<select class="groups">
+				<select class="group">
 				</select>
 			</div>
-		  	<div id="team-picker-left">
+			<div class="col-1-1 line">
+				<select class="stadium">
+				</select>
+			</div>
+		  	<div id="team-a">
 		  	</div>
 		  	<div class="x-separator">X</div>
-		  	<div id="team-picker-right">
+		  	<div id="team-b">
 		  	</div>
 			<div class="col-1-1 line">
 				<input class="datetime" type="text" >
+			</div>
+			<div class="col-1-1">
+				<input type="submit" value="@Messages("palpitada.register")" class="btn btn-primary register"><br/>
 			</div>
 		</div>
 	</div>

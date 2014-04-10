@@ -1,12 +1,14 @@
 // Global variables
-var teams;
-var stages;
-var groups;
+var teams = {};
+var stages = {};
+var groups = {};
+var stadiums = {};
 
 $(document).ready(function() {
 	teams = getTeams();
 	stages = getStages();
 	groups = getGroups();
+	stadiums = getStadiums();
 	
 	//Team-picker
 	if ($("div").hasClass("team-picker")) {
@@ -172,14 +174,16 @@ function optionLabel(element, data) {
 
 //Ajax call + loaders (GET)
 function getTeams() {
-	var teams;
 	ajax.controllers.Application.getTeams().ajax({
 		async: false,
 	    success : function(data) {
-	    	teams = data;
+	    	for (var i in data) {
+	    		var team = data[i];
+	    		teams[team.id] = team;
+	    	}
 	    },
 		error: function(data) {
-			alert("error");
+			alert("Erro ao obter os times");
 		}
 	});
 	
@@ -194,11 +198,26 @@ function getStages() {
 	    	stages = data;
 	    },
 		error: function(data) {
-			alert("error");
+			alert("Erro ao obter as fases");
 		}
 	});
 	
 	return stages;
+}
+
+function getStadiums() {
+	var stadiums;
+	ajax.controllers.Application.getStadiums().ajax({
+		async: false,
+	    success : function(data) {
+	    	stadiums = data;
+	    },
+		error: function(data) {
+			alert("Erro ao obter os estádios");
+		}
+	});
+	
+	return stadiums;
 }
 
 function getGroups() {
@@ -209,7 +228,7 @@ function getGroups() {
 			groups = data;
 		},
 		error: function(data) {
-			alert("error");
+			alert("Erro ao obter os grupos");
 		}
 	});
 	
@@ -225,7 +244,7 @@ function vote(teamId) {
 			location.reload();
 		},
 		error : function(data) {
-			alert("errado");
+			alert("Erro ao salvar favorito");
 		}
 	});
 }
