@@ -1,10 +1,11 @@
 package controllers;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import models.Match;
 import models.Stadium;
 import models.Stage;
 import models.Team;
@@ -118,6 +119,7 @@ public class Application extends Controller {
 	            routes.javascript.Application.getStages(),
 	            routes.javascript.Application.getGroups(),
 	            routes.javascript.Application.getStadiums(),
+	            routes.javascript.Application.getMatches(),
 	            routes.javascript.Application.voteFavorite(),
 	            routes.javascript.Admin.registerMatch()
 	        )
@@ -183,6 +185,38 @@ public class Application extends Controller {
 			json.put("city", stadium.city);
 			json.put("state", stadium.state);
 			json.put("capactiy", stadium.capacity);
+			result.add(json);
+		}
+		
+		return ok(result);
+	}
+	
+	public static Result getMatches() {
+		List<Match> matches = Match.find.all();
+		
+		if (matches.isEmpty()) {
+			return ok();
+		}
+		
+		ArrayNode result = new ArrayNode(JsonNodeFactory.instance);
+		for (Match match : matches) {
+			ObjectNode json = Json.newObject();
+			json.put("id", match.id);
+			json.put("stage", match.stage.id);
+			json.put("group", match.group.id);
+			json.put("stadium", match.stadiums.id);
+			ObjectNode matchTeamA = Json.newObject();
+			matchTeamA.put("team", match.matchTeamA.team.id);
+			matchTeamA.put("goals", match.matchTeamA.goals);
+			matchTeamA.put("penaltyGoals", match.matchTeamA.penaltyGoals);
+			ObjectNode matchTeamB = Json.newObject();
+			matchTeamB.put("team", match.matchTeamB.team.id);
+			matchTeamB.put("goals", match.matchTeamB.goals);
+			matchTeamB.put("penaltyGoals", match.matchTeamB.penaltyGoals);
+			json.put("matchTeamA", matchTeamA);
+			json.put("matchTeamB", matchTeamB);
+			DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+			json.put("datetime", df.format(match.datetime));
 			result.add(json);
 		}
 		

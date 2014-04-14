@@ -3,12 +3,14 @@ var teams = {};
 var stages = {};
 var groups = {};
 var stadiums = {};
+var matches = {};
 
 $(document).ready(function() {
 	teams = getTeams();
 	stages = getStages();
 	groups = getGroups();
 	stadiums = getStadiums();
+	matches = getMatches();
 	
 	//Team-picker
 	if ($("div").hasClass("team-picker")) {
@@ -172,6 +174,47 @@ function optionLabel(element, data) {
 	element.selectric();
 } 
 
+function matchList(element, data) {
+	var matches = data;
+	for (var i in matches) {
+		//tweak
+		var datetime = Date.parseString(matches[i].datetime, "dd/MM/yyyy HH:mm");
+		var $match = $("<li>", {id: matches[i].id, class: "match"});
+		var $datetime = $("<div>", {class: "date col-1-5"});
+		var $day = $("<div>", {class: "day", text: datetime.getUTCDate()});
+		var $month = $("<div>", {class: "month", text: datetime.getUTCMonth() + 1});
+		var $year = $("<div>", {class: "year", text: datetime.getUTCFullYear()});
+		
+		var $stage = $("<div>", {class: "stage col-4-5", text: stages[matches[i].stage].name});
+		
+		$datetime.append($day, $month, $year);
+		$match.append($datetime, $stage);
+		element.append($match);
+	}
+}
+
+//Dialog
+function messageDialog(type, message) {
+	switch(type) {
+	case "success":
+		$("#dialog-message")
+			.removeClass("error")
+			.text(message)
+			.addClass("success");
+		$(".bs-example-modal-sm").modal("show");
+		break;
+	case "error":
+		$("#dialog-message")
+			.removeClass("success")
+			.text(message)
+			.addClass("error");
+		$(".bs-example-modal-sm").modal("show");
+		break;
+	default:
+		alert("error");
+	}
+}
+
 //Ajax call + loaders (GET)
 function getTeams() {
 	ajax.controllers.Application.getTeams().ajax({
@@ -191,11 +234,13 @@ function getTeams() {
 }
 
 function getStages() {
-	var stages;
 	ajax.controllers.Application.getStages().ajax({
 		async: false,
 	    success : function(data) {
-	    	stages = data;
+	    	for (var i in data) {
+	    		var stage = data[i];
+	    		stages[stage.id] = stage;
+	    	}
 	    },
 		error: function(data) {
 			alert("Erro ao obter as fases");
@@ -206,11 +251,13 @@ function getStages() {
 }
 
 function getStadiums() {
-	var stadiums;
 	ajax.controllers.Application.getStadiums().ajax({
 		async: false,
 	    success : function(data) {
-	    	stadiums = data;
+	    	for (var i in data) {
+	    		var stadium = data[i];
+	    		stadiums[stadium.id] = stadium;
+	    	}
 	    },
 		error: function(data) {
 			alert("Erro ao obter os estádios");
@@ -221,11 +268,13 @@ function getStadiums() {
 }
 
 function getGroups() {
-	var groups;
 	ajax.controllers.Application.getGroups().ajax({
 		async: false,
 		success : function(data) {
-			groups = data;
+			for (var i in data) {
+	    		var group = data[i];
+	    		groups[group.id] = group;
+	    	}
 		},
 		error: function(data) {
 			alert("Erro ao obter os grupos");
@@ -233,6 +282,23 @@ function getGroups() {
 	});
 	
 	return groups;
+}
+
+function getMatches() {
+	ajax.controllers.Application.getMatches().ajax({
+		async: false,
+		success : function(data) {
+			for (var i in data) {
+	    		var match = data[i];
+	    		matches[match.id] = match;
+	    	}
+		},
+		error: function(data) {
+			alert("Erro ao obter os jogos");
+		}
+	});
+	
+	return matches;
 }
 
 //Ajax call + loaders (POST)

@@ -155,3 +155,5 @@ palpitada.vote=Vote
 palpitada.matches=Matches
 palpitada.register_match=Register match
 palpitada.register=Register
+palpitada.register_match_success=The match was successfully added
+palpitada.register_match_error.duplicated_team=Duplicated team on the same match

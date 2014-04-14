@@ -5,12 +5,18 @@
 	<div class="col-1-2">
 		<h3>@Messages("palpitada.matches")</h3>
 		<div class="secondary-separator"></div>
+		<div class="match-list">
+		</div>
 	</div>
 	<div class="inner-separator line-450"></div>
 	<div class="col-1-2">
-	<h3>@Messages("palpitada.register_match")</h3>
-	<div class="secondary-separator"></div>
+		<h3>@Messages("palpitada.register_match")</h3>
+		<div class="secondary-separator"></div>
 		<div id="register-match">
+			<div class="col-1-1">
+				<div class="message-block">
+				</div>
+			</div>
 			<div class="col-1-1 line">
 				<select class="stage">
 				</select>
@@ -35,5 +41,11 @@
 				<input type="submit" value="@Messages("palpitada.register")" class="btn btn-primary register"><br/>
 			</div>
 		</div>
+	</div>
+	<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+	  	<div class="modal-dialog">
+	    	<div class="modal-content" id="dialog-message">
+	    	</div>
+	  	</div>
 	</div>
 }

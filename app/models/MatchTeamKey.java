@@ -5,6 +5,7 @@ import javax.persistence.Embeddable;
 
 @Embeddable
 public class MatchTeamKey {
+	
 	@Column(name = "match_id")
 	public Long matchId;
 	@Column(name = "team_id")

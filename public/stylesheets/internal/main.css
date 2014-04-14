@@ -1,3 +1,7 @@
+body {
+	overflow-y:scroll;
+}
+
 #content {
 	margin: 0;
 	text-align: center;
@@ -198,7 +202,30 @@ form input[type="submit"] {
 	margin-top: 10px;
 }
 
-//Responsiveness
+/*Message block*/
+
+.success {
+	background-color: #D3F0DE;
+	color: #1B7A40;
+	padding: 30px;
+}
+
+.error {
+	background-color: #EDC7C5;
+	color: #7A3430;
+	padding: 30px;
+}
+
+/****Sections****/
+/*Match-list*/
+.match-list {
+	padding-right: 20px;
+	padding-left: 20px;
+	list-style-type: none;
+}
+
+
+/*Responsiveness*/
 
 @media (min-width: 870px) {
 	.form-container form {

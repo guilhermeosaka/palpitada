@@ -9,6 +9,7 @@ import models.Match;
 import models.Stadium;
 import models.Stage;
 import models.Team;
+import play.i18n.Messages;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.admin.matches;
@@ -26,6 +27,9 @@ public class Admin extends Controller {
 	}
 	
 	public static Result registerMatch(Long stageId, Long groupId, Long stadiumId, Long teamAId, Long teamBId, String datetime) {
+		if (teamAId == teamBId) {
+			return ok(Messages.get("palpitada.register_match_error.duplicated_team"));
+		}
 		Stage stage = Stage.find.byId(stageId);
 		models.Group group = models.Group.find.byId(groupId);
 		Stadium stadium = Stadium.find.byId(stadiumId);
@@ -42,6 +46,6 @@ public class Admin extends Controller {
 		
 		Match match = Match.create(stage, group, stadium, teamA, teamB, matchDate);
 		
-		return ok();
+		return ok(Messages.get("palpitada.register_match_success"));
 	}
 }

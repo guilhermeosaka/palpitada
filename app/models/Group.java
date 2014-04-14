@@ -21,6 +21,9 @@ public class Group extends Model {
 	@ManyToOne
 	public List<Team> teams;
 	
+	@ManyToOne
+	public List<Match> matches;
+	
 	public Group(String name) {
 		this.name = name;
 	}

@@ -1,12 +1,14 @@
 package models;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import play.db.ebean.Model;
-import play.db.ebean.Model.Finder;
 
 @Entity
 @Table(name = "stadium")
@@ -21,6 +23,9 @@ public class Stadium extends Model {
 	public String city;
 	public String state;
 	public Long capacity;
+	
+	@OneToMany
+	public List<Match> matches;
 	
 	public Stadium(String name, String image, String city, String state, Long capacity) {
 		this.name = name;

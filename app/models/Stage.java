@@ -23,6 +23,9 @@ public class Stage extends Model {
 	@OneToMany
 	public List<StageName> names; //Multi-language
 	
+	@OneToMany
+	public List<Match> matches;
+	
 	public static Finder<Long,Stage> find = new Finder<Long,Stage>(
 		Long.class, Stage.class
     );

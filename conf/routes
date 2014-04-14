@@ -53,6 +53,8 @@ GET     /team/all					controllers.Application.getTeams
 GET 	/stage/all					controllers.Application.getStages
 GET 	/group/all					controllers.Application.getGroups
 GET 	/stadium/all				controllers.Application.getStadiums
+GET 	/match/all 					controllers.Application.getMatches
+
 PUT 	/favorite/:id				controllers.Application.voteFavorite(id: Long)
 PUT 	/admin/match/register/		controllers.Admin.registerMatch(stageId: Long, groupId: Long, stadiumId: Long, teamAId: Long, teamBId: Long, datetime: String)
 

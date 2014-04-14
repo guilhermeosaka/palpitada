@@ -2,41 +2,42 @@ package models;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import play.db.ebean.Model;
-import play.db.ebean.Model.Finder;
 
 @Entity
 @Table(name = "matchteam")
 public class MatchTeam extends Model {
-	@EmbeddedId
-	public MatchTeamKey key;
+	@Id
+	@GeneratedValue
+	public Long id;
 	
-	@MapsId("matchid")
-	@ManyToOne
-	@JoinColumn(name = "match_id", referencedColumnName = "id", insertable=false, updatable=false)
+	@OneToOne
 	public Match match;
-	
-	@MapsId("teamid")
 	@ManyToOne
-	@JoinColumn(name = "team_id", referencedColumnName = "id", insertable=false, updatable=false)
 	public Team team;
 	
-	public MatchTeam(MatchTeamKey key) {
-		this.key = key;
+	public Long goals;
+	public Long penaltyGoals;
+	
+	public MatchTeam(Match match, Team team) {
+		this.match = match;
+		this.team = team;
 	}
 	
-	public static Finder<MatchTeamKey,MatchTeam> find = new Finder<MatchTeamKey,MatchTeam>(
-			MatchTeamKey.class, MatchTeam.class
+	public static Finder<Long,MatchTeam> find = new Finder<Long,MatchTeam>(
+			Long.class, MatchTeam.class
     );
 	
 	public static MatchTeam create(Match match, Team team) {
-		MatchTeamKey key = new MatchTeamKey(match.id, team.id);
-		MatchTeam matchTeam = new MatchTeam(key);
+		MatchTeam matchTeam = new MatchTeam(match, team);
 		matchTeam.save();
 		
 		return matchTeam;

@@ -4,6 +4,7 @@ $(document).ready(function() {
 	optionLabel($(".stage"), stages);
 	optionLabel($(".group"), groups);
 	optionLabel($(".stadium"), stadiums);
+	matchList($(".match-list"), matches);
 	
 	// Shows group select box if the stage selected is group
 	$("#register-match").find(".stages").change(function() {
@@ -35,13 +36,17 @@ $(document).ready(function() {
 		var datetime = $("#register-match").find(".datetime").val();
 		if (datetime == "") datetime = moment().format('DD/MM/YYYY hh:mm')
 		
+		if (teamAId === teamBId) {
+			messageDialog("error", "You gotta choose different teams");
+			return;
+		}
+		
 		ajax.controllers.Admin.registerMatch(stageId, groupId, stadiumId, teamAId, teamBId, datetime).ajax({
 		    success : function(data) {
-		    	stages = data;
-		    	alert("success");
+		    	messageDialog("success", data)
 		    },
 			error: function(data) {
-				alert("error");
+				messageDialog("error", "Erro inesperado");
 			}
 		});
 	});
