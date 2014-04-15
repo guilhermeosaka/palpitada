@@ -5,6 +5,10 @@ var groups = {};
 var stadiums = {};
 var matches = {};
 
+//Months 
+var monthsEN = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+var monthsPT = ["JAN", "FEV", "MAR", "ABR", "MAI", "JUN", "JUL", "AGO", "SET", "OUT", "NOV", "DEZ"];
+
 $(document).ready(function() {
 	teams = getTeams();
 	stages = getStages();
@@ -176,19 +180,55 @@ function optionLabel(element, data) {
 
 function matchList(element, data) {
 	var matches = data;
+	$(".inner-separator").css("height", Object.size(matches) * 130 + "px");
+	element.empty();
 	for (var i in matches) {
-		//tweak
-		var datetime = Date.parseString(matches[i].datetime, "dd/MM/yyyy HH:mm");
-		var $match = $("<li>", {id: matches[i].id, class: "match"});
-		var $datetime = $("<div>", {class: "date col-1-5"});
+		var match = matches[i]
+		var datetime = Date.parseString(match.datetime, "dd/MM/yyyy HH:mm");
+		var $match = $("<li>", {id: match.id, class: "match col-1-1"});
+		var $datetime = $("<div>", {class: "date col-1-3"});
 		var $day = $("<div>", {class: "day", text: datetime.getUTCDate()});
-		var $month = $("<div>", {class: "month", text: datetime.getUTCMonth() + 1});
+		var $monthYear = $("<div>", {class: "month-year"});
+		var $month = $("<div>", {class: "month", text: monthsEN[datetime.getUTCMonth()]});
 		var $year = $("<div>", {class: "year", text: datetime.getUTCFullYear()});
+		var hours = datetime.getHours();
+		if (hours < 10)
+			hours = "0" + hours;
+		var minutes = datetime.getMinutes();
+		if (minutes < 10)
+			minutes = "0" + minutes;
+		var $time = $("<div>", {class: "time", text: hours + "h" + minutes})
+		$monthYear.append($month, $year);
+		$datetime.append($day, $monthYear, $time);
 		
-		var $stage = $("<div>", {class: "stage col-4-5", text: stages[matches[i].stage].name});
+		var title = stages[match.stage].name;
+		if (matches[i].group != "")
+			title += " " + groups[match.group].name;
+		var $stage = $("<div>", {class: "stage col-2-3", text: title});
 		
-		$datetime.append($day, $month, $year);
-		$match.append($datetime, $stage);
+		var teamA = teams[match.matchTeamA.team];
+		var teamB = teams[match.matchTeamB.team];
+		var $teams = $("<div>", {class: "teams col-1-1"});
+		var $teamAImage = $("<img>", {src: "/assets/images/external/flags/" + teamA.logo});
+		$teamAImage.tooltip({
+			placement: "bottom",
+			title: teamA.name
+		});
+		var $teamBImage = $("<img>", {src: "/assets/images/external/flags/" + teamB.logo});
+		var $teamA = $("<div>", {class: "teamA"});
+		var $teamB = $("<div>", {class: "teamB"});
+		$teamBImage.tooltip({
+			placement: "bottom",
+			title: teamB.name
+		});
+		$teamA.append($teamAImage);
+		$teamB.append($teamBImage);
+		$teams.append($teamA, "X", $teamB);
+//		$teams.append(teams[match.matchTeamA.team].name, $teamAImage,
+//				"X",
+//				$teamBImage, teams[match.matchTeamB.team].name);
+//		
+		$match.append($datetime, $stage, $teams);
 		element.append($match);
 	}
 }
@@ -314,3 +354,13 @@ function vote(teamId) {
 		}
 	});
 }
+
+
+//Helpers
+Object.size = function(obj) {
+    var size = 0, key;
+    for (key in obj) {
+        if (obj.hasOwnProperty(key)) size++;
+    }
+    return size;
+};

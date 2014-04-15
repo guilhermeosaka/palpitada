@@ -222,8 +222,70 @@ form input[type="submit"] {
 	padding-right: 20px;
 	padding-left: 20px;
 	list-style-type: none;
+	display: block;
 }
 
+.match-list li:nth-child(even) {
+	background-color: #EEEEEE;
+}
+
+.match-list li:nth-child(odd) {
+	background-color: #F5F5F5;
+}
+
+.match .date .day {
+	display: inline-block;
+	font-size: 30px;
+	margin-right: 5px;
+}
+
+.match .date .month-year {
+	display: inline-block;
+	font-size: 12px;
+	line-height: 15px;
+	border-left: 1px solid #34495e;
+	padding-left: 5px;
+	margin-right: 10px;
+}
+
+.match .date .month {
+	display: block;
+}
+
+.match .date .time {
+	display: inline-block;
+}
+
+.match-list .date .year {
+	display: block;
+}
+
+.match .stage {
+	display: inline;
+	line-height: 50px;
+	text-align: left;
+}
+
+.match .teams {
+	font-size: 20px;
+}
+
+.match .teams .teamA {
+	display: inline-block;
+	text-align: right;
+	font-size: 14px;
+}
+
+.match .teams .teamB {
+	display: inline-block;
+	text-align: left;
+	font-size: 14px;
+}
+
+.match .teams img {
+	margin-left: 10px;
+	margin-right: 10px;
+}
 
 /*Responsiveness*/
 

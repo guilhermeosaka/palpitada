@@ -230,8 +230,8 @@ public class Global extends GlobalSettings {
 		//Stage
 		if (Stage.find.findRowCount() == 0) {
 			Map<String, String> groupStageNames = new HashMap<>();
-			groupStageNames.put("en", "Group stage");
-			groupStageNames.put("pt", "Fase de grupos");
+			groupStageNames.put("en", "Group");
+			groupStageNames.put("pt", "Grupo");
 			Stage groupStage = Stage.create(groupStageNames);
 			
 			Map<String, String> roundOf16Names = new HashMap<>();

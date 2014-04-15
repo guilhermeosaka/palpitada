@@ -203,7 +203,10 @@ public class Application extends Controller {
 			ObjectNode json = Json.newObject();
 			json.put("id", match.id);
 			json.put("stage", match.stage.id);
-			json.put("group", match.group.id);
+			if (match.group != null) 
+				json.put("group", match.group.id); 
+			else 
+				json.put("group", "");
 			json.put("stadium", match.stadiums.id);
 			ObjectNode matchTeamA = Json.newObject();
 			matchTeamA.put("team", match.matchTeamA.team.id);

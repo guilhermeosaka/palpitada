@@ -7,16 +7,16 @@ $(document).ready(function() {
 	matchList($(".match-list"), matches);
 	
 	// Shows group select box if the stage selected is group
-	$("#register-match").find(".stages").change(function() {
+	$("#register-match").find(".stage").change(function() {
 		var value = $(this).val();
 		
 		if (value == "")
 			return;
 		
 		if (value != 1) //hard coded
-			$("#register-match").find(".groups").fadeOut();
+			$("#register-match").find(".group").fadeOut();
 		else
-			$("#register-match").find(".groups").fadeIn();
+			$("#register-match").find(".group").fadeIn();
 	});
 	
 	$('.datetime').datetimepicker({
@@ -44,6 +44,8 @@ $(document).ready(function() {
 		ajax.controllers.Admin.registerMatch(stageId, groupId, stadiumId, teamAId, teamBId, datetime).ajax({
 		    success : function(data) {
 		    	messageDialog("success", data)
+		    	matches = getMatches();
+		    	matchList($(".match-list"), matches);
 		    },
 			error: function(data) {
 				messageDialog("error", "Erro inesperado");
