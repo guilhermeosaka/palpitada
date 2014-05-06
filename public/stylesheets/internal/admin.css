@@ -1,4 +1,6 @@
-#register-match {
+
+
+#add-match {
 	text-align: center;
 }
 
@@ -6,20 +8,28 @@
 	display: inline-block;
 }
 
-#register-match .line {
+#add-match .line {
 	text-align: center !important;
 	margin: 10px 0;
 }
 
-#register-match .stage {
+#add-match .stages {
 	max-width: 180px;
 }
 
-#register-match .group {
+#add-match .groups {
 	max-width: 60px;
 }
 
-#register-match .stadium {
+#add-match .stadiums {
 	max-width: 180px;
 	margin-bottom: 40px;
+}
+
+.delete-match {
+	padding: 10px 0 !important;
+}
+
+#no-matches, #no-finished-matches, #no-unfinished-matches {
+	display: none;
 }

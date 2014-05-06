@@ -1,5 +1,4 @@
 // Global variables
-var teams = {};
 var stages = {};
 var groups = {};
 var stadiums = {};
@@ -10,20 +9,19 @@ var monthsEN = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "
 var monthsPT = ["JAN", "FEV", "MAR", "ABR", "MAI", "JUN", "JUL", "AGO", "SET", "OUT", "NOV", "DEZ"];
 
 $(document).ready(function() {
-	teams = getTeams();
 	stages = getStages();
 	groups = getGroups();
 	stadiums = getStadiums();
 	matches = getMatches();
 	
 	//Team-picker
-	if ($("div").hasClass("team-picker")) {
-		teamOptionLabel($("#team-picker"));
-		$("#vote-team").click(function() {
-			var ddData = $('#team-picker').data('ddslick');
-			vote(ddData.selectedData.value);
-		});
-	}
+//	if ($("div").hasClass("team-picker")) {
+//		teamOptionLabel($("#team-picker"));
+//		$("#vote-team").click(function() {
+//			var ddData = $('#team-picker').data('ddslick');
+//			vote(ddData.selectedData.value);
+//		});
+//	}
 	
 	/* It can be done creating a plugin (remember note) */
 	//Validation - Email
@@ -180,7 +178,7 @@ function optionLabel(element, data) {
 
 function matchList(element, data) {
 	var matches = data;
-	$(".inner-separator").css("height", Object.size(matches) * 130 + "px");
+	$(".inner-separator").css("height", Object.size(matches) * 120 + "px");
 	element.empty();
 	for (var i in matches) {
 		var match = matches[i]
@@ -224,9 +222,6 @@ function matchList(element, data) {
 		$teamA.append($teamAImage);
 		$teamB.append($teamBImage);
 		$teams.append($teamA, "X", $teamB);
-//		$teams.append(teams[match.matchTeamA.team].name, $teamAImage,
-//				"X",
-//				$teamBImage, teams[match.matchTeamB.team].name);
 //		
 		$match.append($datetime, $stage, $teams);
 		element.append($match);
@@ -257,13 +252,11 @@ function messageDialog(type, message) {
 
 //Ajax call + loaders (GET)
 function getTeams() {
+	var teams = [];
 	ajax.controllers.Application.getTeams().ajax({
 		async: false,
-	    success : function(data) {
-	    	for (var i in data) {
-	    		var team = data[i];
-	    		teams[team.id] = team;
-	    	}
+	    success: function(data) {
+	    	teams = data;
 	    },
 		error: function(data) {
 			alert("Erro ao obter os times");
@@ -274,13 +267,11 @@ function getTeams() {
 }
 
 function getStages() {
+	var stages;
 	ajax.controllers.Application.getStages().ajax({
 		async: false,
-	    success : function(data) {
-	    	for (var i in data) {
-	    		var stage = data[i];
-	    		stages[stage.id] = stage;
-	    	}
+	    success: function(data) {
+	    	stages = data;
 	    },
 		error: function(data) {
 			alert("Erro ao obter as fases");
@@ -291,13 +282,11 @@ function getStages() {
 }
 
 function getStadiums() {
+	var stadiums;
 	ajax.controllers.Application.getStadiums().ajax({
 		async: false,
-	    success : function(data) {
-	    	for (var i in data) {
-	    		var stadium = data[i];
-	    		stadiums[stadium.id] = stadium;
-	    	}
+	    success: function(data) {
+	    	stadiums = data;
 	    },
 		error: function(data) {
 			alert("Erro ao obter os estádios");
@@ -308,13 +297,11 @@ function getStadiums() {
 }
 
 function getGroups() {
+	var groups;
 	ajax.controllers.Application.getGroups().ajax({
 		async: false,
-		success : function(data) {
-			for (var i in data) {
-	    		var group = data[i];
-	    		groups[group.id] = group;
-	    	}
+		success: function(data) {
+			groups = data;
 		},
 		error: function(data) {
 			alert("Erro ao obter os grupos");
@@ -325,13 +312,11 @@ function getGroups() {
 }
 
 function getMatches() {
+	var matches;
 	ajax.controllers.Application.getMatches().ajax({
 		async: false,
-		success : function(data) {
-			for (var i in data) {
-	    		var match = data[i];
-	    		matches[match.id] = match;
-	    	}
+		success: function(data) {
+			matches = data;
 		},
 		error: function(data) {
 			alert("Erro ao obter os jogos");
@@ -341,19 +326,35 @@ function getMatches() {
 	return matches;
 }
 
-//Ajax call + loaders (POST)
-function vote(teamId) {
-	ajax.controllers.Application.voteFavorite(teamId).ajax({
-		success : function(data) {
-			//window.location.replace("/");
-			//$(".team-picker").fadeOut();
-			location.reload();
+function getFinishedMatches(finished) {
+	var matches;
+	ajax.controllers.Application.getFinishedMatches(finished).ajax({
+		async: false,
+		success: function(data) {
+			matches = data;
 		},
-		error : function(data) {
-			alert("Erro ao salvar favorito");
+		error: function(data) {
+			alert("Erro ao obter os jogos");
 		}
 	});
+	
+	return matches;
 }
+
+
+//Ajax call + loaders (POST)
+//function vote(teamId) {
+//	ajax.controllers.Application.voteFavorite(teamId).ajax({
+//		success : function(data) {
+//			//window.location.replace("/");
+//			//$(".team-picker").fadeOut();
+//			location.reload();
+//		},
+//		error : function(data) {
+//			alert("Erro ao salvar favorito");
+//		}
+//	});
+//}
 
 
 //Helpers
@@ -364,3 +365,7 @@ Object.size = function(obj) {
     }
     return size;
 };
+
+function trim(string) {
+	return string.replace(/^\s+|\s+$/gm,'');
+}

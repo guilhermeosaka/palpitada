@@ -25,18 +25,20 @@ public class Match extends Model {
 	@ManyToOne
 	public Group group;
 	@ManyToOne
-	public Stadium stadiums;
+	public Stadium stadium;
 	@OneToOne
 	public MatchTeam matchTeamA;
 	@OneToOne
 	public MatchTeam matchTeamB;
 	public Date datetime;
+	public boolean finished;
 	
 	public Match(Stage stage, Group group, Stadium stadium, Date datetime) {
 		this.stage = stage;
 		this.group = group;
-		this.stadiums = stadium;
+		this.stadium = stadium;
 		this.datetime = datetime;
+		this.finished = false;
 	}
 	
 	public static Finder<Long,Match> find = new Finder<Long,Match>(
@@ -47,8 +49,8 @@ public class Match extends Model {
 		Match match = new Match(stage, group, stadium, datetime);
 		match.save();
 	
-		MatchTeam matchTeamA = MatchTeam.create(match, teamA);
-		MatchTeam matchTeamB = MatchTeam.create(match, teamB);
+		MatchTeam matchTeamA = MatchTeam.create(teamA);
+		MatchTeam matchTeamB = MatchTeam.create(teamB);
 		
 		match.matchTeamA = matchTeamA;
 		match.matchTeamB = matchTeamB;

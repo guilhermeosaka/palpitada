@@ -1,44 +1,97 @@
 @import be.objectify.deadbolt.java.views.html._
 @import be.objectify.deadbolt.core.utils.TemplateUtils._
 
-@main(Messages("playauthenticate.index.title")) {
+
+@scripts = {
+	
+    <script src="@routes.Assets.at("javascripts/internal/admin.matches.js")" type="text/javascript"></script>
+}
+
+@styles = {
+	<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/internal/admin.css")">
+}
+
+@main(Messages("playauthenticate.index.title"), "", scripts, styles) {
+	<meta charset="UTF-8" />
+	
 	<div class="col-1-2">
 		<h3>@Messages("palpitada.matches")</h3>
 		<div class="secondary-separator"></div>
-		<div class="match-list">
+		<div id="no-matches">
+			<h3>Não há partidas</h3>
 		</div>
+		<div class="match-list">
+		<ul data-bind="foreach: matches">
+			<li id="1" class="match col-1-1">
+				<div class="date col-1-2">
+					<div class="day" data-bind="text: day"></div>
+					<div class="month-year">
+						<div class="month" data-bind="text: month"></div>
+						<div class="year" data-bind="text: year"></div>
+					</div>
+					<div class="time" data-bind="text: time"></div>
+				</div>
+				<div class="stage col-1-2" data-bind="text: stage"></div>
+				<div class="teams col-1-1">
+					<div class="teamA">
+						<img class="tooltip-team" data-bind="attr:{src: '/assets/images/external/flags/' + matchTeamA.team.logo, 'data-toggle': 'tooltip', 'data-placement': 'top','title': matchTeamA.team.name}">
+					</div>
+					X
+					<div class="teamB">
+						<img class="tooltip-team" data-bind="attr:{src: '/assets/images/external/flags/' + matchTeamB.team.logo, 'data-toggle': 'tooltip', 'data-placement': 'top','title': matchTeamB.team.name}">
+					</div>
+				</div>
+				<div class="stadium col-1-1" data-bind="text: stadium">
+				</div>
+				<div class="col-1-1 delete-match">
+					<button class="btn btn-danger" data-bind="click: $root.removeMatch">Delete</button>
+				</div>
+			</li>
+		</ul>
+	</div>
 	</div>
 	<div class="inner-separator line-450"></div>
 	<div class="col-1-2">
 		<h3>@Messages("palpitada.register_match")</h3>
 		<div class="secondary-separator"></div>
-		<div id="register-match">
+		<div id="add-match">
 			<div class="col-1-1">
 				<div class="message-block">
 				</div>
 			</div>
 			<div class="col-1-1 line">
-				<select class="stage">
+				<select class="stages" data-bind="
+				    options: stages,
+				    optionsText: 'name',
+				    value: stage">
+				</select>
+			</div>
+			<div class="col-1-1 line" data-bind="visible: stage().id == 1">
+				<select class="groups" data-bind="
+				    options: groups,    
+				    optionsText: 'name',
+				    value: group">
 				</select>
 			</div>
 			<div class="col-1-1 line">
-				<select class="group">
+				<select class="stadiums" data-bind="
+				    options: stadiums,    
+				    optionsText: 'name',
+				    value: stadium">
 				</select>
 			</div>
-			<div class="col-1-1 line">
-				<select class="stadium">
-				</select>
-			</div>
-		  	<div id="team-a">
-		  	</div>
+	  		<select id="team-a" data-bind="foreach: teams">
+	  			<option data-bind="value : id, attr : {'data-imagesrc' : '../assets/images/external/flags/' + logo}"></option>	
+	  		</select>
 		  	<div class="x-separator">X</div>
-		  	<div id="team-b">
-		  	</div>
+		  	<select id="team-b" data-bind="foreach: teams">
+	  			<option data-bind="value : id, attr : {'data-imagesrc' : '../assets/images/external/flags/' + logo}"></option>	
+	  		</select>
 			<div class="col-1-1 line">
-				<input class="datetime" type="text" >
+				<input class="datetime" type="text" data-bind="value: datetime">
 			</div>
 			<div class="col-1-1">
-				<input type="submit" value="@Messages("palpitada.register")" class="btn btn-primary register"><br/>
+				<input type="submit" value="@Messages("palpitada.register")" class="btn btn-primary register" data-bind="click: addMatch"><br/>
 			</div>
 		</div>
 	</div>

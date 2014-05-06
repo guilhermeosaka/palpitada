@@ -19,16 +19,13 @@ public class MatchTeam extends Model {
 	@GeneratedValue
 	public Long id;
 	
-	@OneToOne
-	public Match match;
 	@ManyToOne
 	public Team team;
 	
 	public Long goals;
 	public Long penaltyGoals;
 	
-	public MatchTeam(Match match, Team team) {
-		this.match = match;
+	public MatchTeam(Team team) {
 		this.team = team;
 	}
 	
@@ -36,8 +33,8 @@ public class MatchTeam extends Model {
 			Long.class, MatchTeam.class
     );
 	
-	public static MatchTeam create(Match match, Team team) {
-		MatchTeam matchTeam = new MatchTeam(match, team);
+	public static MatchTeam create(Team team) {
+		MatchTeam matchTeam = new MatchTeam(team);
 		matchTeam.save();
 		
 		return matchTeam;

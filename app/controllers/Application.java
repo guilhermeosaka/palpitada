@@ -19,6 +19,7 @@ import play.mvc.Result;
 import providers.MyUsernamePasswordAuthProvider;
 import providers.MyUsernamePasswordAuthProvider.MyLogin;
 import providers.MyUsernamePasswordAuthProvider.MySignup;
+import service.JsonPalpitada;
 import views.html.index;
 import views.html.login;
 import views.html.profile;
@@ -120,8 +121,10 @@ public class Application extends Controller {
 	            routes.javascript.Application.getGroups(),
 	            routes.javascript.Application.getStadiums(),
 	            routes.javascript.Application.getMatches(),
+	            routes.javascript.Application.getFinishedMatches(),
 	            routes.javascript.Application.voteFavorite(),
-	            routes.javascript.Admin.registerMatch()
+	            routes.javascript.Admin.addMatch(),
+	            routes.javascript.Admin.removeMatch()
 	        )
 	    );
 	}
@@ -194,33 +197,20 @@ public class Application extends Controller {
 	public static Result getMatches() {
 		List<Match> matches = Match.find.all();
 		
-		if (matches.isEmpty()) {
-			return ok();
-		}
-		
 		ArrayNode result = new ArrayNode(JsonNodeFactory.instance);
 		for (Match match : matches) {
-			ObjectNode json = Json.newObject();
-			json.put("id", match.id);
-			json.put("stage", match.stage.id);
-			if (match.group != null) 
-				json.put("group", match.group.id); 
-			else 
-				json.put("group", "");
-			json.put("stadium", match.stadiums.id);
-			ObjectNode matchTeamA = Json.newObject();
-			matchTeamA.put("team", match.matchTeamA.team.id);
-			matchTeamA.put("goals", match.matchTeamA.goals);
-			matchTeamA.put("penaltyGoals", match.matchTeamA.penaltyGoals);
-			ObjectNode matchTeamB = Json.newObject();
-			matchTeamB.put("team", match.matchTeamB.team.id);
-			matchTeamB.put("goals", match.matchTeamB.goals);
-			matchTeamB.put("penaltyGoals", match.matchTeamB.penaltyGoals);
-			json.put("matchTeamA", matchTeamA);
-			json.put("matchTeamB", matchTeamB);
-			DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-			json.put("datetime", df.format(match.datetime));
-			result.add(json);
+			result.add(JsonPalpitada.matchToJson(match));
+		}
+		
+		return ok(result);
+	}
+	
+	public static Result getFinishedMatches(boolean finished) {
+		List<Match> matches = Match.find.where().eq("finished", finished).findList();
+		
+		ArrayNode result = new ArrayNode(JsonNodeFactory.instance);
+		for (Match match: matches) {
+			result.add(JsonPalpitada.matchToJson(match));
 		}
 		
 		return ok(result);

@@ -2,6 +2,10 @@ body {
 	overflow-y:scroll;
 }
 
+ul {
+	list-style: none;
+}
+
 #content {
 	margin: 0;
 	text-align: center;
@@ -219,8 +223,7 @@ form input[type="submit"] {
 /****Sections****/
 /*Match-list*/
 .match-list {
-	padding-right: 20px;
-	padding-left: 20px;
+	padding-right: 40px;
 	list-style-type: none;
 	display: block;
 }
@@ -254,6 +257,8 @@ form input[type="submit"] {
 
 .match .date .time {
 	display: inline-block;
+	font-size: 30px;
+	font-weight: 100;
 }
 
 .match-list .date .year {
@@ -263,7 +268,9 @@ form input[type="submit"] {
 .match .stage {
 	display: inline;
 	line-height: 50px;
-	text-align: left;
+	font-size: 20px;
+	font-weight: 100;
+	text-align: center;
 }
 
 .match .teams {
@@ -285,6 +292,28 @@ form input[type="submit"] {
 .match .teams img {
 	margin-left: 10px;
 	margin-right: 10px;
+}
+
+.match .stadium {
+	margin: 10px 0;
+}
+
+.match-list input.goals {
+	display: inline-block;
+	width: 45px !important;
+	overflow: auto;
+	padding: 5px;
+	font-size: 14px;
+}
+
+.match-list .divisor {
+	margin: 0px 10px;
+}
+
+@media all and (max-width: 1000px) {
+	.match-list ul, .match-list {
+		padding: 0;
+	}
 }
 
 /*Responsiveness*/
@@ -397,4 +426,10 @@ header .btn-primary:hover, header .btn-primary.disabled, header .btn-primary:act
 	height: 2px;
 	border-top: 1px solid #34495E;
 	line-height: 0;
+}
+
+/* Vex */
+.vex.vex-theme-os .vex-content {
+	font-size: 16px;
+	font-family: Lato, Helvetica;
 }

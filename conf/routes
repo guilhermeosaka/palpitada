@@ -54,9 +54,11 @@ GET 	/stage/all					controllers.Application.getStages
 GET 	/group/all					controllers.Application.getGroups
 GET 	/stadium/all				controllers.Application.getStadiums
 GET 	/match/all 					controllers.Application.getMatches
+GET 	/match/partial				controllers.Application.getFinishedMatches(finished: Boolean)
 
 PUT 	/favorite/:id				controllers.Application.voteFavorite(id: Long)
-PUT 	/admin/match/register/		controllers.Admin.registerMatch(stageId: Long, groupId: Long, stadiumId: Long, teamAId: Long, teamBId: Long, datetime: String)
+PUT 	/admin/match/register/		controllers.Admin.addMatch(stageId: Long, groupId: Long, stadiumId: Long, teamAId: Long, teamBId: Long, datetime: String)
+DELETE 	/admin/match/remove/		controllers.Admin.removeMatch(matchId: Long)	
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
